@@ -1,20 +1,14 @@
 # PostgreSQL Ubuntu Installation Script
 
-Here are instructions on how to use this template:
-
-* Navigate to the [main page of this repository](https://github.com/VeeamCommunity/veeamcommunity-template
-* Follow instructions for [creating a repository from a template](https://help.github.com/en/articles/creating-a-repository-from-a-template)
-  * _Repository names **must** have the prefix:_ **veeamcommunity-**
-  * Example: _veeamcommunity-repo-name_
-* Replace **all** repository-specific links
-  * `issues` link in _README.md_
-  * `create an issue` link in _README.md_
-  * `opening a new issue` link in _CONTRIBUTING.md_
-* Remove the instructions from this section and replace it with information describing this repository.
+This script was designed to install and configure PostgreSQL on Ubuntu for Veeam Backup for Salesforce with minimal user interaction.
 
 ## 📗 Documentation
 
-Based on [Manish R Jain's guide](https://manishrjain.com/postgres-on-zfs) with some additional changes.
+To use the script, run the following commands:
+1. `git clone https://github.com/VeeamCommunity/ubuntu-postgresql-install`
+2. `cd ./ubuntu-postgresql-install/`
+3. `chmod +x install-psql.sh`
+4. `sudo ./install-psql.sh`
 
 ## ✍ Contributions
 
