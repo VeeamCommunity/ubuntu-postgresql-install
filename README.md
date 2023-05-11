@@ -14,7 +14,7 @@ Here are instructions on how to use this template:
 
 ## 📗 Documentation
 
-_Place documentation or links to documentation here._
+Based on the [Ubuntu installation guide](https://ubuntu.com/server/docs/databases-postgresql) and using [Transparent Data Encryption](https://wiki.postgresql.org/wiki/Transparent_Data_Encryption) for encryption at-rest.
 
 ## ✍ Contributions
 
