@@ -2,6 +2,8 @@
 
 This script was designed to install and configure PostgreSQL on Ubuntu for Veeam Backup for Salesforce with minimal user interaction.
 
+Note: This has only been tested on Ubuntu 22.04 with PostgreSQL 14.
+
 ## 📗 Documentation
 
 To use the script, run the following commands on the Ubuntu server that will host PostgreSQL:
