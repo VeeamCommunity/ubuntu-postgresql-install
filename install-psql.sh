@@ -28,7 +28,7 @@ echo "Editing postgresql.conf for remote connections..."
 sed -i "s/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/g" /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
 echo 'Editing pg_hba.conf for remote connections...'
-sed -i "s/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             $vbsf_ip/32            scram-sha-256/g" /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
+sed -i "s/host    all             all             127.0.0.1\/32            scram-sha-256/host    all             all             $vbsf_ip\/32            scram-sha-256/g" /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
 echo "Restarting PostgreSQL service to apply changes..."
@@ -45,9 +45,9 @@ $veeam_password = gpg --gen-random --armor 1 14
 su - postgres -c "echo SvcVeeamBackup:$veeam_password | chpasswd"
 
 # Output the password to the console for the user to copy
-echo "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
+echo -e "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
 echo "Username: SvcVeeamBackup"
 echo "Password: $veeam_password"
 
-echo "\n\n\nInstallation complete!"
+echo -e "\n\n\nInstallation complete!"
 exit
