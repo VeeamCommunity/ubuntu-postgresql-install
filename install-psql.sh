@@ -8,37 +8,37 @@ do
   if [[ $vbsf_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     ip_invalid=false
   else
-    printf "$vbsf_ip is not a valid IP address. Please try again."
+    echo "$vbsf_ip is not a valid IP address. Please try again."
   fi
 done
 
 # Update package information before installation
-echo 'Updating package information...'
+echo "Updating package information..."
 apt-get update
 
 # Install PostgreSQL
-echo 'Installing PostgreSQL...'
+echo "Installing PostgreSQL..."
 apt install postgresql -y
 
 # Check installed version
 PSQL_MAJOR_VER=$(psql -V | egrep -o '[0-9]{1,}' | head -n 1)
 
 # Enable remote connections
-echo 'Editing postgresql.conf for remote connections...'
-sed -i 's/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
+echo "Editing postgresql.conf for remote connections..."
+sed -i "s/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/" /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
 echo 'Editing pg_hba.conf for remote connections...'
-sed -i 's/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             '$vbsf_ip'/32            scram-sha-256/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
+sed -i "s/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             $vbsf_ip/32            scram-sha-256/" /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
-echo 'Restarting PostgreSQL service to apply changes...'
+echo "Restarting PostgreSQL service to apply changes..."
 service postgresql restart
 
 # Switch to postgres user to create account for Veeam to use for access
-echo 'Switching to postgres user...'
+echo "Switching to postgres user..."
 su - postgres
 
-echo 'Creating Veeam database user...'
+echo "Creating Veeam database user..."
 createuser -l -d SvcVeeamBackup
 
 # Generate random password
