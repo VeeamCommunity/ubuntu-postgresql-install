@@ -39,17 +39,17 @@ printf 'Switching to postgres user...'
 su - postgres
 
 printf 'Creating Veeam database user...'
-createuser -l -d veeambackupsf
+createuser -l -d SvcVeeamBackup
 
 # Generate random password
 $veeam_password = gpg --gen-random --armor 1 14
 
 # Apply password to account
-printf veeambackupsf:$veeam_password | chpasswd
+printf SvcVeeamBackup:$veeam_password | chpasswd
 
 # TODO: Output the password to the console for the user to copy
 printf "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
-printf "Username: veeambackupsf"
+printf "Username: SvcVeeamBackup"
 printf "Password: $veeam_password"
 
 printf "\n\n\nInstallation complete!"
