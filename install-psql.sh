@@ -13,29 +13,29 @@ do
 done
 
 # Update package information before installation
-printf 'Updating package information...'
+echo 'Updating package information...'
 apt-get update
 
 # Install PostgreSQL
-printf 'Installing PostgreSQL...'
+echo 'Installing PostgreSQL...'
 apt install postgresql -y
 
 # Check installed version
 PSQL_MAJOR_VER=$(psql -V | egrep -o '[0-9]{1,}' | head -n 1)
 
 # Enable remote connections
-printf 'Editing postgresql.conf for remote connections...'
+echo 'Editing postgresql.conf for remote connections...'
 sed -i 's/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
 printf 'Editing pg_hba.conf for remote connections...'
 sed -i 's/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             '$vbsf_ip'/32            scram-sha-256/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
-printf 'Restarting PostgreSQL service to apply changes...'
+echo 'Restarting PostgreSQL service to apply changes...'
 service postgresql restart
 
 # Switch to postgres user to create account for Veeam to use for access
-printf 'Switching to postgres user...'
+echo 'Switching to postgres user...'
 su - postgres
 
 printf 'Creating Veeam database user...'
@@ -45,12 +45,12 @@ createuser -l -d SvcVeeamBackup
 $veeam_password = gpg --gen-random --armor 1 14
 
 # Apply password to account
-printf SvcVeeamBackup:$veeam_password | chpasswd
+echo SvcVeeamBackup:$veeam_password | chpasswd
 
-# TODO: Output the password to the console for the user to copy
-printf "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
-printf "Username: SvcVeeamBackup"
-printf "Password: $veeam_password"
+# Output the password to the console for the user to copy
+echo "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
+echo "Username: SvcVeeamBackup"
+echo "Password: $veeam_password"
 
 printf "\n\n\nInstallation complete!"
 exit
