@@ -4,7 +4,7 @@ This script was designed to install and configure PostgreSQL on Ubuntu for Veeam
 
 ## 📗 Documentation
 
-To use the script, run the following commands:
+To use the script, run the following commands on the Ubuntu server that will host the database:
 1. `git clone https://github.com/VeeamCommunity/ubuntu-postgresql-install`
 2. `cd ./ubuntu-postgresql-install/`
 3. `chmod +x install-psql.sh`
