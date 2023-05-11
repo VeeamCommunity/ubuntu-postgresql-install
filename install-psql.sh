@@ -25,10 +25,10 @@ PSQL_MAJOR_VER=$(psql -V | egrep -o '[0-9]{1,}' | head -n 1)
 
 # Enable remote connections
 echo "Editing postgresql.conf for remote connections..."
-sed -i "s/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/g" /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
+sed -i "s/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/g" /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
 echo 'Editing pg_hba.conf for remote connections...'
-sed -i "s/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             $vbsf_ip/32            scram-sha-256/g" /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
+sed -i "s/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             $vbsf_ip/32            scram-sha-256/g" /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
 echo "Restarting PostgreSQL service to apply changes..."
