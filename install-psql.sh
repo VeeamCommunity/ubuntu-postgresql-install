@@ -42,7 +42,7 @@ su - postgres -c "createuser -l -d SvcVeeamBackup"
 veeam_password=$(gpg --gen-random --armor 1 14)
 
 # Apply password to account
-su - postgres -c "echo SvcVeeamBackup:$veeam_password | chpasswd"
+su - postgres -c "echo \"SvcVeeamBackup:$veeam_password\" | chpasswd"
 
 # Output the password to the console for the user to copy
 echo -e "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
