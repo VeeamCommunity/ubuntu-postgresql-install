@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Prompt user for the VBSF IP Address
-ip_valid=false
-while[!$ip_valid]
+ip_invalid=true
+while $ip_invalid
 do
   read -p "Enter the IP address of the Veeam Backup for SF server: " vbsf_ip
   if [[ $vbsf_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    ip_valid=true
+    ip_invalid=false
   else
     printf "$vbsf_ip is not a valid IP address. Please try again."
   fi
