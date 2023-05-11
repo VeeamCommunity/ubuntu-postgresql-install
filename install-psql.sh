@@ -21,14 +21,14 @@ printf 'Installing PostgreSQL...'
 apt install postgresql -y
 
 # Check installed version
-PSQL_MAJOR_VER = postgres -V | egrep -o '[0-9]{1,}'
+PSQL_MAJOR_VER=$(psql -V | egrep -o '[0-9]{1,}' | head -n 1)
 
 # Enable remote connections
 printf 'Editing postgresql.conf for remote connections...'
-sed -i 's/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/' /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
+sed -i 's/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
 printf 'Editing pg_hba.conf for remote connections...'
-sed -i 's/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             '$vbsf_ip'/32            scram-sha-256/' /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
+sed -i 's/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             '$vbsf_ip'/32            scram-sha-256/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
 printf 'Restarting PostgreSQL service to apply changes...'
