@@ -27,7 +27,7 @@ PSQL_MAJOR_VER=$(psql -V | egrep -o '[0-9]{1,}' | head -n 1)
 echo 'Editing postgresql.conf for remote connections...'
 sed -i 's/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
-printf 'Editing pg_hba.conf for remote connections...'
+echo 'Editing pg_hba.conf for remote connections...'
 sed -i 's/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             '$vbsf_ip'/32            scram-sha-256/' /usr/lib/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
@@ -38,7 +38,7 @@ service postgresql restart
 echo 'Switching to postgres user...'
 su - postgres
 
-printf 'Creating Veeam database user...'
+echo 'Creating Veeam database user...'
 createuser -l -d SvcVeeamBackup
 
 # Generate random password
@@ -52,5 +52,5 @@ echo "\n\n\nPlease make sure to copy the following lines as they will NOT be sav
 echo "Username: SvcVeeamBackup"
 echo "Password: $veeam_password"
 
-printf "\n\n\nInstallation complete!"
+echo "\n\n\nInstallation complete!"
 exit
