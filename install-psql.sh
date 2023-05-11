@@ -28,7 +28,7 @@ printf 'Editing postgresql.conf for remote connections...'
 sed -i 's/#listen_addresses=\'localhost\'/listen_addresses=\'*\'/' /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf 
 
 printf 'Editing pg_hba.conf for remote connections...'
-sed -i 's/host    all             all             127.0.0.1/32            md5/host    all             all             '$vbsf_ip'/32            md5/' /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
+sed -i 's/host    all             all             127.0.0.1/32            scram-sha-256/host    all             all             '$vbsf_ip'/32            scram-sha-256/' /etc/postgresql/$PSQL_MAJOR_VER/main/postgresql.conf
 
 # Restart service so changes can take effect
 printf 'Restarting PostgreSQL service to apply changes...'
