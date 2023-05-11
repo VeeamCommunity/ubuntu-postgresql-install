@@ -34,10 +34,7 @@ sed -i "s/host    all             all             127.0.0.1/32            scram-
 echo "Restarting PostgreSQL service to apply changes..."
 service postgresql restart
 
-# Switch to postgres user to create account for Veeam to use for access
-echo "Switching to postgres user..."
-su - postgres
-
+# Create account for Veeam to access the server with
 echo "Creating Veeam database user..."
 su - postgres -c "createuser -l -d SvcVeeamBackup"
 
