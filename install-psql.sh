@@ -39,7 +39,7 @@ echo "Creating Veeam database user..."
 su - postgres -c "createuser -l -d SvcVeeamBackup"
 
 # Generate random password
-$veeam_password = gpg --gen-random --armor 1 14
+veeam_password=$(gpg --gen-random --armor 1 14)
 
 # Apply password to account
 su - postgres -c "echo SvcVeeamBackup:$veeam_password | chpasswd"
