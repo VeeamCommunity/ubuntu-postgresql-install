@@ -39,7 +39,8 @@ veeam_password=$(gpg --gen-random --armor 1 14)
 
 # Create account for Veeam to access the server with
 echo "Creating Veeam database user..."
-sudo -u postgres psql -c "CREATE USER SvcVeeamBackup WITH PASSWORD '$veeam_password' CREATEDB LOGIN;"
+su - postgres -c "createuser -l -d SvcVeeamBackup"
+su - postgres -c "psql -c \"ALTER USER SvcVeeamBackup WITH PASSWORD '$veeam_password';\""
 
 # Output the password to the console for the user to copy
 echo -e "\n\n\nPlease make sure to copy the following lines as they will NOT be saved and are needed by Veeam."
